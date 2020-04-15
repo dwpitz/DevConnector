@@ -8,6 +8,10 @@ const app = express();
 //Connect DB
 connectDB();
 
+//Init Middleware
+//Bodyparser is apparently now included in express, so this is all we need to do now.
+app.use(express.json({ extended: false }));
+
 //Simple Get Request to see if the server is running. Clients of our server can retrieve information from it. The 2nd parameter (a callback) is executed each time a client goes to the index site. This callback features a request and a response.  The request features an object containing information about the request being made.  The response is an object containing methods for sending info back to the client. '/' is actually 'http://localhost:5000'.
 app.get('/', (req, res) => {
   res.send('API Running');
