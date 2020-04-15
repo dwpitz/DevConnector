@@ -8,13 +8,13 @@ const app = express();
 //Connect DB
 connectDB();
 
-//Simple Get Request to see if the server is running. Clients of our server can retrieve information from it. The 2nd parameter (a callback) is executed each time a client goes to the index site. This callback features a request and a response.  The request features an object containing information about the request being made.  The response is an object containing methods for sending info back to the client.
+//Simple Get Request to see if the server is running. Clients of our server can retrieve information from it. The 2nd parameter (a callback) is executed each time a client goes to the index site. This callback features a request and a response.  The request features an object containing information about the request being made.  The response is an object containing methods for sending info back to the client. '/' is actually 'http://localhost:5000'.
 app.get('/', (req, res) => {
   res.send('API Running');
 });
 
 //Define Routes
-//This pertains to the / in the Get Route in server.js. Same for other app.use routes.
+//This pertains to the / in the above Get Route. '/api/users' is appended to 'http://localhost:5000', and requires the get route in 'routes/api/users'.
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profile', require('./routes/api/profile'));
