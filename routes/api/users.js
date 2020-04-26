@@ -3,6 +3,8 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 //User Model
 const User = require('../../models/User');
@@ -57,11 +59,25 @@ router.post(
       const salt = await bcrypt.genSalt(10);
       //This takes the user's password and applies the salt to it, encripting it.
       user.password = await bcrypt.hash(password, salt);
-      //This saves the user.
+      //This saves the user in the DB.
       await user.save();
-      //return the json web token.  When the user registers we want them to be logged in right away, and you need the json web token to do that.
-
-      res.send('User Registered');
+      //return the json web token.  When the user registers we want them to be logged in right away, and you need the json web token to do that. The user uses the token to authenticate and access protected routes.
+      //This is the payload, which includes the user ID.
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+      //This signs the token, passes in the payload, secret, and expiration.
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
