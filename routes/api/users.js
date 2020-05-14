@@ -47,7 +47,7 @@ router.post(
         r: 'pg',
         d: 'mm',
       });
-      //This creates an instance of the user.
+      //Instantiates a User
       user = new User({
         name,
         email,
