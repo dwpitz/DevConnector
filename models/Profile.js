@@ -111,5 +111,5 @@ const ProfileSchema = new mongoose.Schema({
 });
 
 //The result of the method mongoose.model() gives us the all powerful model object that can query the database. Profile is the collection.
-const Profile = mongoose.model('profile, ProfileSchema');
+const Profile = mongoose.model('profile', ProfileSchema);
 module.exports = Profile;
