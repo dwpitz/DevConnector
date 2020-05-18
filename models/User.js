@@ -23,6 +23,5 @@ const UserSchema = new mongoose.Schema({
 });
 
 //The result of the method mongoose.model() gives us the all powerful model object that can query the database. User is the collection.
-//is 'user' supposed to be 'User'?  Possible problem.
 const User = mongoose.model('user', UserSchema);
 module.exports = User;
